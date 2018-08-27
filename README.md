@@ -1,5 +1,7 @@
 # vuex-tetris
 
+> Tetris implementation with Vue, Vuex and Typescript
+
 ## Project setup
 ```
 yarn install
