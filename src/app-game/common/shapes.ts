@@ -17,7 +17,7 @@ export interface Block {
 export const Shapes: Shape[] = [
   [
     [1, 1],
-    [1, 1]
+    [1, 1],
   ],
   [
     [0, 0, 0],
@@ -38,21 +38,21 @@ export const Shapes: Shape[] = [
     [0, 1, 0, 0],
     [0, 1, 0, 0],
     [0, 1, 0, 0],
-    [0, 1, 0, 0]
+    [0, 1, 0, 0],
   ],
   [
     [0, 0, 1],
     [0, 1, 1],
-    [0, 1, 0]
+    [0, 1, 0],
   ],
   [
     [1, 0, 0],
     [1, 1, 0],
-    [0, 1, 0]
+    [0, 1, 0],
   ],
 ];
 
 export const BoardShape: Shape = Array(BOARD_HEIGHT)
   .fill(void 0)
-  .map(_ => Array(BOARD_WIDTH)
+  .map((_) => Array(BOARD_WIDTH)
     .fill(0));

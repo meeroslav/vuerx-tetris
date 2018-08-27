@@ -5,7 +5,7 @@ export const ShapeColors  = [
   '#d9534f',
   '#f0ad4e',
   '#ff5b77',
-  '#613d7c'
+  '#613d7c',
 ];
 
 export const BlackColor = '#000000';
@@ -14,7 +14,7 @@ export enum Keys {
   ArrowLeft = 'ArrowLeft',
   ArrowRight = 'ArrowRight',
   Space = 'Space',
-  ArrowDown = 'ArrowDown'
+  ArrowDown = 'ArrowDown',
 }
 
 export const BOARD_WIDTH = 10;

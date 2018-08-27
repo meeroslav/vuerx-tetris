@@ -1,6 +1,6 @@
 import { ShapeColors, BOARD_WIDTH, BOARD_HEIGHT, CELL_SIZE, GAP_SIZE, BlackColor } from './constants';
 import { Block, Point2D, Shape } from './shapes';
-import { Scene } from './game-logic';
+import { Scene } from '../store/state';
 
 const CANVAS_WIDTH = BOARD_WIDTH * (CELL_SIZE + GAP_SIZE) - GAP_SIZE;
 const CANVAS_HEIGHT = BOARD_HEIGHT * (CELL_SIZE + GAP_SIZE) - GAP_SIZE;
@@ -17,8 +17,8 @@ export function renderGameOver(ctx: CanvasRenderingContext2D) {
   ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
   ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
-  let textX = CANVAS_WIDTH / 2;
-  let textY = CANVAS_HEIGHT / 2;
+  const textX = CANVAS_WIDTH / 2;
+  const textY = CANVAS_HEIGHT / 2;
 
   ctx.fillStyle = BlackColor;
   ctx.font = `bold 25px sans-serif`;
