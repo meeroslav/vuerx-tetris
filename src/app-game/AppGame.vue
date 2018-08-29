@@ -29,16 +29,17 @@ export default class AppGame extends Vue {
   }
 
   private initGame() {
-    // wait for animation frame
-    window.requestAnimationFrame(() => {
-      renderScene(this.canvasCtx, this.$store.state.scene);
-    });
+    this.$store.commit('Init');
+
+    // set game pace
     this.interval = setInterval(() => {
       this.$store.commit(Keys.ArrowDown);
     }, GAME_SPEED);
+
+    // set key listeners
     document.addEventListener('keydown', this.keySubscription.bind(this), true);
 
-    // render on every move
+    // render on every change
     this.$store.watch(state => state.scene, (scene: Scene) => {
       if (isGameOver(scene)) {
         window.requestAnimationFrame(() => {

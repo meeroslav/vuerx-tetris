@@ -1,8 +1,11 @@
 import { MutationTree } from 'vuex';
-import { generateBlock, State } from './state';
+import { generateBlock, generateState, State } from './state';
 import { invertShape, mergeBlockToBoard, moveBlock, removeFullRows, rotateBlock } from '../common/game-logic';
 
 export const mutations: MutationTree<State> = {
+  Init(state: State) {
+    state.scene = generateState().scene;
+  },
   Space(state: State) {
     const rotated = rotateBlock(state.scene);
     if (rotated) {
