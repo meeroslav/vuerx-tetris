@@ -1,30 +1,31 @@
 import { MutationTree } from 'vuex';
 import { generateBlock, generateState, State } from './state';
 import { invertShape, mergeBlockToBoard, moveBlock, removeFullRows, rotateBlock } from '../common/game-logic';
+import { INIT, Keys } from '@/app-game/common/constants';
 
 export const mutations: MutationTree<State> = {
-  Init(state: State) {
+  [INIT](state: State) {
     state.scene = generateState().scene;
   },
-  Space(state: State) {
+  [Keys.Space](state: State) {
     const rotated = rotateBlock(state.scene);
     if (rotated) {
       state.scene = rotated;
     }
   },
-  ArrowRight(state: State) {
+  [Keys.ArrowRight](state: State) {
     const result = moveBlock(state.scene, 1, 0);
     if (result) {
       state.scene = result;
     }
   },
-  ArrowLeft(state: State) {
+  [Keys.ArrowLeft](state: State) {
     const result = moveBlock(state.scene, -1, 0);
     if (result) {
       state.scene = result;
     }
   },
-  ArrowDown(state: State) {
+  [Keys.ArrowDown](state: State) {
     const result = moveBlock(state.scene, 0, 1);
     if (result) {
       state.scene = result;
@@ -33,8 +34,8 @@ export const mutations: MutationTree<State> = {
         const board = mergeBlockToBoard(state.scene);
         state.scene = {
           board: removeFullRows(board), // remove lines if possible
-          block: generateBlock() // generate new block
-        }
+          block: generateBlock(), // generate new block
+        };
       } else {
         state.scene.block.shape = invertShape(state.scene.block.shape);
       }

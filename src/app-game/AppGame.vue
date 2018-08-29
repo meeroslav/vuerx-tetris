@@ -5,15 +5,15 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { BOARD_HEIGHT, BOARD_WIDTH, CELL_SIZE, GAME_SPEED, GAP_SIZE, Keys } from './common/constants';
+import { BOARD_HEIGHT, BOARD_WIDTH, CELL_SIZE, GAME_SPEED, GAP_SIZE, INIT, Keys } from './common/constants';
 import { renderGameOver, renderScene } from './common/renderer';
-import { Scene } from './store/state';
+import { Scene, State } from './store/state';
 import { isGameOver } from './common/game-logic';
 
 @Component({})
 export default class AppGame extends Vue {
   private canvasCtx!: CanvasRenderingContext2D;
-  private interval!;
+  private interval: any;
 
   public mounted() {
     const canvas = this.$el as HTMLCanvasElement;
@@ -29,18 +29,18 @@ export default class AppGame extends Vue {
   }
 
   private initGame() {
-    this.$store.commit('Init');
+    this.$store.dispatch(INIT);
 
     // set game pace
     this.interval = setInterval(() => {
-      this.$store.commit(Keys.ArrowDown);
+      this.$store.dispatch(Keys.ArrowDown);
     }, GAME_SPEED);
 
     // set key listeners
     document.addEventListener('keydown', this.keySubscription.bind(this), true);
 
     // render on every change
-    this.$store.watch(state => state.scene, (scene: Scene) => {
+    this.$store.watch((state: State) => state.scene, (scene: Scene) => {
       if (isGameOver(scene)) {
         window.requestAnimationFrame(() => {
           renderGameOver(this.canvasCtx);
@@ -55,9 +55,10 @@ export default class AppGame extends Vue {
   }
 
   private keySubscription(event: KeyboardEvent) {
-    const key = Keys[event.code];
+    const key: string = Keys[event.code as any];
     if (key!!) {
-      this.$store.commit(key);
+      console.log(key);
+      this.$store.dispatch(key);
     }
   }
 
@@ -65,7 +66,7 @@ export default class AppGame extends Vue {
     if (this.interval) {
       clearInterval(this.interval);
     }
-    document.removeEventListener('keydown', this.keySubscription.bind(this), true)
+    document.removeEventListener('keydown', this.keySubscription.bind(this), true);
   }
 }
 </script>

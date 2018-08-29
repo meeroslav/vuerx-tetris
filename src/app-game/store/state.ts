@@ -34,6 +34,6 @@ export function generateState(): State {
     scene: {
       board: BoardShape,
       block: generateBlock(),
-    }
+    },
   };
 }

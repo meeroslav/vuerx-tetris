@@ -17,6 +17,8 @@ export enum Keys {
   ArrowDown = 'ArrowDown',
 }
 
+export const INIT = 'Init';
+
 export const BOARD_WIDTH = 10;
 export const BOARD_HEIGHT = 20;
 export const GAP_SIZE = 1;
