@@ -57,7 +57,6 @@ export default class AppGame extends Vue {
   private keySubscription(event: KeyboardEvent) {
     const key: string = Keys[event.code as any];
     if (key!!) {
-      console.log(key);
       this.$store.dispatch(key);
     }
   }
