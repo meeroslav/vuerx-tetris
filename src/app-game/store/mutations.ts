@@ -6,7 +6,7 @@ import { INIT, Keys } from '@/app-game/common/constants';
 export function sceneReducer(scene: Scene, action: string): Scene {
   let result;
 
-  switch(action) {
+  switch (action) {
     case INIT:
       return generateScene();
     case Keys.Space:
@@ -34,8 +34,8 @@ export function sceneReducer(scene: Scene, action: string): Scene {
         ...scene,
         block: {
           ...scene.block,
-          shape: invertShape(scene.block.shape)
-        }
+          shape: invertShape(scene.block.shape),
+        },
       };
     default:
       return scene;

@@ -7,7 +7,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { BOARD_HEIGHT, BOARD_WIDTH, CELL_SIZE, GAME_SPEED, GAP_SIZE, INIT, Keys } from './common/constants';
 import { renderGameOver, renderScene } from './common/renderer';
-import { generateScene, generateState, Scene, State } from './store/state';
+import { generateScene } from './store/state';
 import { isGameOver } from './common/game-logic';
 import { BehaviorSubject, Subject, fromEvent, interval } from 'rxjs';
 import { filter, map, takeUntil, scan, takeWhile, withLatestFrom } from 'rxjs/operators';
@@ -16,7 +16,7 @@ import { sceneReducer } from './store/mutations';
 
 @Component({})
 export default class AppGame extends Vue {
-  private destroy$: Subject<boolean> = new Subject<boolean>();
+  private destroy$ = new Subject<boolean>();
 
 
   public mounted() {
@@ -39,32 +39,32 @@ export default class AppGame extends Vue {
     fromEvent(document, 'keydown')
       .pipe(
         map((event: KeyboardEvent) => Keys[event.code]),
-        filter(key => !!key),
-        takeUntil(this.destroy$)
+        filter((key) => !!key),
+        takeUntil(this.destroy$),
       )
       .subscribe(actions$);
 
     interval(GAME_SPEED)
       .pipe(
-        map(_ => Keys.ArrowDown),
-        takeUntil(this.destroy$)
+        map((_) => Keys.ArrowDown),
+        takeUntil(this.destroy$),
       )
       .subscribe(actions$);
 
     const scene$ = actions$
       .pipe(
-        scan(sceneReducer, generateScene())
+        scan(sceneReducer, generateScene()),
       );
 
     interval(0, animationFrame)
       .pipe(
         withLatestFrom(scene$, (_, scene) => scene),
-        takeWhile(scene => !isGameOver(scene)),
-        takeUntil(this.destroy$)
+        takeWhile((scene) => !isGameOver(scene)),
+        takeUntil(this.destroy$),
       )
       .subscribe({
-        next: scene => renderScene(canvasCtx, scene),
-        complete: () => renderGameOver(canvasCtx)
+        next: (scene) => renderScene(canvasCtx, scene),
+        complete: () => renderGameOver(canvasCtx),
       });
   }
 }
