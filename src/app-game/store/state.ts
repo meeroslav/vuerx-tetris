@@ -25,15 +25,19 @@ export interface Scene {
   block: Block;
 }
 
+export function generateScene(): Scene {
+  return {
+    board: BoardShape,
+    block: generateBlock(),
+  };
+}
+
 export interface State {
   scene: Scene;
 }
 
 export function generateState(): State {
   return {
-    scene: {
-      board: BoardShape,
-      block: generateBlock(),
-    },
+    scene: generateScene(),
   };
 }
