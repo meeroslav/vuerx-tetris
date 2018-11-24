@@ -54,5 +54,5 @@ export const Shapes: Shape[] = [
 
 export const BoardShape: Shape = Array(BOARD_HEIGHT)
   .fill(void 0)
-  .map((_) => Array(BOARD_WIDTH)
+  .map(() => Array(BOARD_WIDTH)
     .fill(0));

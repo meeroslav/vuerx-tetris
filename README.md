@@ -1,6 +1,6 @@
-# vuex-tetris
+# vuerx-tetris
 
-> Tetris implementation with Vue, Vuex and Typescript
+> Tetris implementation with Vue, RxJS and Typescript
 
 ## Project setup
 ```

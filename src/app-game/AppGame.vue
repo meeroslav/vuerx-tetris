@@ -16,8 +16,7 @@ import { sceneReducer } from './store/mutations';
 
 @Component({})
 export default class AppGame extends Vue {
-  private destroy$ = new Subject<boolean>();
-
+  private destroy$ = new Subject();
 
   public mounted() {
     const canvas = this.$el as HTMLCanvasElement;
@@ -38,15 +37,16 @@ export default class AppGame extends Vue {
 
     fromEvent(document, 'keydown')
       .pipe(
-        map((event: KeyboardEvent) => Keys[event.code]),
-        filter((key) => !!key),
+        map(event => event as KeyboardEvent),
+        map((event: KeyboardEvent) => Keys[event.code as any]),
+        filter(key => !!key),
         takeUntil(this.destroy$),
       )
       .subscribe(actions$);
 
     interval(GAME_SPEED)
       .pipe(
-        map((_) => Keys.ArrowDown),
+        map(() => Keys.ArrowDown),
         takeUntil(this.destroy$),
       )
       .subscribe(actions$);
@@ -59,11 +59,11 @@ export default class AppGame extends Vue {
     interval(0, animationFrame)
       .pipe(
         withLatestFrom(scene$, (_, scene) => scene),
-        takeWhile((scene) => !isGameOver(scene)),
+        takeWhile(scene => !isGameOver(scene)),
         takeUntil(this.destroy$),
       )
       .subscribe({
-        next: (scene) => renderScene(canvasCtx, scene),
+        next: scene => renderScene(canvasCtx, scene),
         complete: () => renderGameOver(canvasCtx),
       });
   }

@@ -31,13 +31,3 @@ export function generateScene(): Scene {
     block: generateBlock(),
   };
 }
-
-export interface State {
-  scene: Scene;
-}
-
-export function generateState(): State {
-  return {
-    scene: generateScene(),
-  };
-}

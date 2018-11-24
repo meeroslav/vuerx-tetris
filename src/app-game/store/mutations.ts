@@ -1,5 +1,4 @@
-import { MutationTree } from 'vuex';
-import { generateBlock, generateScene, Scene, State } from './state';
+import { generateBlock, generateScene, Scene } from './state';
 import { invertShape, mergeBlockToBoard, moveBlock, removeFullRows, rotateBlock } from '../common/game-logic';
 import { INIT, Keys } from '@/app-game/common/constants';
 
@@ -41,21 +40,3 @@ export function sceneReducer(scene: Scene, action: string): Scene {
       return scene;
   }
 }
-
-export const mutations: MutationTree<State> = {
-  [INIT](state: State) {
-    state.scene = sceneReducer(state.scene, INIT);
-  },
-  [Keys.Space](state: State) {
-    state.scene = sceneReducer(state.scene, Keys.Space);
-  },
-  [Keys.ArrowRight](state: State) {
-    state.scene = sceneReducer(state.scene, Keys.ArrowRight);
-  },
-  [Keys.ArrowLeft](state: State) {
-    state.scene = sceneReducer(state.scene, Keys.ArrowLeft);
-  },
-  [Keys.ArrowDown](state: State) {
-    state.scene = sceneReducer(state.scene, Keys.ArrowDown);
-  },
-};

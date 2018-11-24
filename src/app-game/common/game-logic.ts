@@ -1,6 +1,6 @@
 import { Block, Shape } from './shapes';
 import { BOARD_WIDTH } from './constants';
-import { Scene, State } from '../store/state';
+import { Scene } from '../store/state';
 
 export function invertShape(shape: Shape): Shape {
   const inverted: Shape = [];
@@ -14,7 +14,7 @@ export function invertShape(shape: Shape): Shape {
 }
 
 export function isGameOver(scene: Scene): boolean {
-  return scene.block.shape.some((row) => row.some((cell) => cell < 0));
+  return scene.block.shape.some(row => row.some(cell => cell < 0));
 }
 
 export function moveBlock(scene: Scene, deltaX: number = 0, deltaY: number = 0): Scene | undefined {
@@ -49,7 +49,7 @@ export function rotateBlock(scene: Scene): Scene | undefined {
 
 export function removeFullRows(board: Shape): Shape {
   const indexes = board.reduce((acc, row, index) => {
-    if (row.every((cell) => !!cell)) {
+    if (row.every(cell => !!cell)) {
       acc.push(index);
     }
     return acc;
@@ -58,7 +58,7 @@ export function removeFullRows(board: Shape): Shape {
   if (indexes.length) {
     const emptyLines = Array(indexes.length)
       .fill(void 0)
-      .map((_) => Array(BOARD_WIDTH).fill(0));
+      .map(() => Array(BOARD_WIDTH).fill(0));
 
     const result = [
       ...emptyLines,
